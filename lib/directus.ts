@@ -39,7 +39,10 @@ export async function getAllSlugs(): Promise<string[]> {
     );
 
     if (!response.ok) {
-      console.error('Failed to fetch slugs from Directus:', response.statusText);
+      console.error('Failed to fetch slugs from Directus:', response.status, response.statusText);
+      if (response.status === 401) {
+        console.error('Authentication failed. Make sure DIRECTUS_TOKEN is set correctly.');
+      }
       return [];
     }
 
@@ -94,7 +97,13 @@ export async function getPost(
     console.log(`[Directus] Fetched post "${slug}" in ${fetchTime}ms`);
 
     if (!response.ok) {
-      console.error(`Failed to fetch post "${slug}" from Directus:`, response.statusText);
+      console.error(`Failed to fetch post "${slug}" from Directus:`, response.status, response.statusText);
+      if (response.status === 401) {
+        console.error('❌ Authentication failed. Check these:');
+        console.error('  - DIRECTUS_TOKEN is set in environment variables');
+        console.error('  - Token has read permission for blogs collection');
+        console.error('  - Collection is not set to public (requires auth)');
+      }
       return null;
     }
 

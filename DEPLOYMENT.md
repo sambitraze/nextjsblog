@@ -65,11 +65,11 @@ REVALIDATION_SECRET=your_secret_token
 ## 🧪 Test After Deployment
 
 ### 1. Test Each Rendering Mode:
-- Visit `https://your-app.vercel.app/blog/ssr/sample`
-- Visit `https://your-app.vercel.app/blog/ssg/sample`
-- Visit `https://your-app.vercel.app/blog/isr/sample`
-- Visit `https://your-app.vercel.app/blog/isr-ondemand/sample`
-- Visit `https://your-app.vercel.app/blog/csr/sample`
+- Visit `https://your-app.vercel.app/blog/ssr/hello-world`
+- Visit `https://your-app.vercel.app/blog/ssg/hello-world`
+- Visit `https://your-app.vercel.app/blog/isr/hello-world`
+- Visit `https://your-app.vercel.app/blog/isr-ondemand/hello-world`
+- Visit `https://your-app.vercel.app/blog/csr/hello-world`
 
 ### 2. Test Metrics Lab:
 - Visit `https://your-app.vercel.app/metrics`

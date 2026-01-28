@@ -157,7 +157,7 @@ export default function Home() {
               Open Metrics Lab
             </a>
             <a
-              href="/metrics/sample"
+              href="/metrics/hello-world"
               className="inline-block mt-2 bg-indigo-100 text-indigo-700 px-4 py-2 rounded hover:bg-indigo-200 transition-colors text-xs font-semibold w-full text-center border border-indigo-300"
             >
               Compare All Modes

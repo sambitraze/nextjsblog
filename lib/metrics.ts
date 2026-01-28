@@ -65,16 +65,21 @@ export async function measurePageMetrics(url: string): Promise<MetricsResult> {
       headers,
       htmlPreview,
       timestamp: new Date().toISOString(),
+      error: response.status >= 400 ? `HTTP ${response.status}: ${response.statusText}` : undefined,
     };
   } catch (error) {
     const totalTime = Date.now() - startTime;
     
-    throw {
+    return {
       url,
       status: 0,
       statusText: 'Fetch Failed',
       ttfb: ttfbTime || totalTime,
       totalTime,
+      htmlSize: 0,
+      htmlSizeKB: '0.00',
+      headers: {},
+      htmlPreview: '',
       error: error instanceof Error ? error.message : 'Unknown error',
       timestamp: new Date().toISOString(),
     };

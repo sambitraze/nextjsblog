@@ -139,7 +139,7 @@ export default function MetricsLabPage() {
           <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded">
             <p className="text-sm font-semibold mb-2">🆕 Compare All Modes for a Slug:</p>
             <a 
-              href="/metrics/sample"
+              href="/metrics/hello-world"
               className="inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm font-semibold"
             >
               Compare All Modes for "sample"
@@ -162,9 +162,25 @@ export default function MetricsLabPage() {
       {/* Results Display */}
       {result && (
         <div className="space-y-6">
+          {/* Error/Warning Display for non-200 status */}
+          {result.status !== 200 && (
+            <div className="bg-yellow-50 border border-yellow-300 rounded-lg p-4">
+              <h3 className="text-yellow-800 font-semibold mb-2">⚠️ Non-200 Response</h3>
+              <p className="text-yellow-700 text-sm mb-2">
+                The page returned a <strong>{result.status}</strong> status. This might indicate:
+              </p>
+              <ul className="text-sm text-yellow-700 ml-4 list-disc space-y-1">
+                <li>Authentication issue with Directus API</li>
+                <li>Missing environment variables (DIRECTUS_URL or DIRECTUS_TOKEN)</li>
+                <li>Page not found or access denied</li>
+                <li>Check your Vercel deployment environment variables</li>
+              </ul>
+            </div>
+          )}
+          
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-white rounded-lg border border-black-200 p-4">
+            <div className="bg-white rounded-lg border border-gray-200 p-4">"
               <div className="text-sm text-black-800 mb-1">HTTP Status</div>
               <div className="text-2xl font-bold">
                 <span className={result.status === 200 ? 'text-green-600' : 'text-red-600'}>

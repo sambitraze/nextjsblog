@@ -63,7 +63,7 @@ export async function GET() {
         url: 'string (required) - The URL to test',
       },
       example: {
-        url: 'https://your-domain.com/blog/ssr/sample',
+        url: 'https://your-domain.com/blog/ssr/hello-world',
       },
     },
     response: {
