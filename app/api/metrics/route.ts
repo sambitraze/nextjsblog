@@ -31,9 +31,27 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(`[Metrics] Testing URL: ${url}`);
+    
+    // For Vercel deployments, when testing same-domain URLs,
+    // use relative paths to avoid external fetch limitations
+    let testUrl = url;
+    const requestHost = request.headers.get('host');
+    
+    try {
+      const urlObj = new URL(url);
+      const urlHost = urlObj.host;
+      
+      // If testing our own domain on Vercel, use internal fetch
+      if (requestHost && urlHost === requestHost) {
+        testUrl = urlObj.pathname + urlObj.search;
+        console.log(`[Metrics] Same-domain detected, using relative path: ${testUrl}`);
+      }
+    } catch (e) {
+      console.log(`[Metrics] URL parsing issue:`, e);
+    }
 
     // Measure page metrics
-    const metrics = await measurePageMetrics(url);
+    const metrics = await measurePageMetrics(testUrl);
 
     return NextResponse.json(metrics);
   } catch (error) {

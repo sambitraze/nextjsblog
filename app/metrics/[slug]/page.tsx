@@ -55,6 +55,8 @@ export default function SlugMetricsPage() {
     const url = `${baseUrl}/blog/${mode}/${slug}`;
     
     try {
+      console.log(`[Client] Testing mode: ${mode}, URL: ${url}`);
+      
       const response = await fetch('/api/metrics', {
         method: 'POST',
         headers: {
@@ -64,13 +66,26 @@ export default function SlugMetricsPage() {
       });
 
       const data = await response.json();
+      
+      console.log(`[Client] Response for ${mode}:`, {
+        ok: response.ok,
+        status: response.status,
+        dataStatus: data.status,
+        error: data.error
+      });
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to fetch metrics');
+        throw new Error(data.error || data.message || 'Failed to fetch metrics');
+      }
+      
+      // If data contains an error field (e.g., 401), show it as an error
+      if (data.error) {
+        throw new Error(data.error);
       }
 
       return { result: data, error: null };
     } catch (err) {
+      console.error(`[Client] Error testing ${mode}:`, err);
       return { result: null, error: err instanceof Error ? err.message : 'Unknown error' };
     }
   };

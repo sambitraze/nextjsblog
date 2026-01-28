@@ -21,14 +21,22 @@ export interface MetricsResult {
 /**
  * Fetches a URL and returns performance metrics
  * 
- * @param url - The URL to fetch and measure
+ * @param url - The URL to fetch and measure (can be absolute or relative)
  */
 export async function measurePageMetrics(url: string): Promise<MetricsResult> {
   const startTime = Date.now();
   let ttfbTime = 0;
   
   try {
-    const response = await fetch(url, {
+    // Determine if this is a relative or absolute URL
+    const isRelative = url.startsWith('/');
+    const fetchUrl = isRelative 
+      ? `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'}${url}`
+      : url;
+    
+    console.log(`[Metrics] Fetching: ${fetchUrl} (original: ${url})`);
+    
+    const response = await fetch(fetchUrl, {
       cache: 'no-store',
       headers: {
         'User-Agent': 'Next.js Metrics Lab',
