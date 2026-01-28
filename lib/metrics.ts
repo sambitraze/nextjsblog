@@ -15,6 +15,7 @@ export interface MetricsResult {
   headers: Record<string, string>;
   htmlPreview: string; // First 300 characters of HTML
   timestamp: string;
+  error?: string;
 }
 
 /**
