@@ -118,5 +118,5 @@ export async function getPost(
  * Type guard to check if Directus is configured
  */
 export function isDirectusConfigured(): boolean {
-  return DIRECTUS_URL_CONFIGURED;
+  return !!DIRECTUS_URL && DIRECTUS_URL !== '';
 }
