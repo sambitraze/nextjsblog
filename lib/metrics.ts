@@ -31,7 +31,9 @@ export async function measurePageMetrics(url: string): Promise<MetricsResult> {
       cache: 'no-store',
       headers: {
         'User-Agent': 'Next.js Metrics Lab',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
       },
+      redirect: 'follow',
     });
 
     // Approximate TTFB (time when headers are received)

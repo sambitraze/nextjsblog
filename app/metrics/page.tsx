@@ -118,22 +118,36 @@ export default function MetricsLabPage() {
         </form>
 
         {/* Quick Test Buttons */}
-        <div className="mt-6 pt-6 border-t border-black-200">
+        <div className="mt-6 pt-6 border-t border-gray-200">
           <p className="text-sm font-semibold mb-3">Quick Tests:</p>
           <div className="flex flex-wrap gap-2">
             {quickTests.map((test) => (
               <button
                 key={test.label}
                 onClick={() => fillUrl(test.path)}
-                className="px-4 py-2 bg-black-100 hover:bg-black-200 rounded text-sm font-medium transition-colors"
+                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded text-sm font-medium transition-colors"
               >
                 {test.label}
               </button>
             ))}
           </div>
-          <p className="text-xs text-black-700 mt-2">
+          <p className="text-xs text-gray-700 mt-2">
             Note: Make sure the blog post with slug &quot;sample&quot; exists in Directus
           </p>
+          
+          {/* Compare All Modes Link */}
+          <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded">
+            <p className="text-sm font-semibold mb-2">🆕 Compare All Modes for a Slug:</p>
+            <a 
+              href="/metrics/sample"
+              className="inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm font-semibold"
+            >
+              Compare All Modes for "sample"
+            </a>
+            <p className="text-xs text-gray-700 mt-2">
+              Test SSR, SSG, ISR, and CSR simultaneously for any slug
+            </p>
+          </div>
         </div>
       </div>
 
